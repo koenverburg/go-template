@@ -21,12 +21,10 @@ RUN go build -o /main
 # Runner
 #
 
-FROM gcr.io/distroless/base-debian10 AS runner
+FROM alpine AS runner
 
 WORKDIR /
 
 COPY --from=builder /main /main
-
-USER nonroot:nonroot
 
 ENTRYPOINT ["/main"]
