@@ -1,12 +1,9 @@
 CONTAINER="template-go"
-CONTAINER_ID=$(docker inspect --f"ormat="{{.Container}}" $(CONTAINER))
+CONTAINER_ID=$(docker inspect --format="{{.Container}}" $(CONTAINER))
 
 list:
 	echo $(CONTAINER)
 	echo $(CONTAINER_ID)
-
-run:
-	go run -race ./src/main.go
 
 build:
 	docker build . -t $(CONTAINER)
@@ -16,9 +13,6 @@ run:
 
 tail-logs:
 	docker logs --follow $(CONTAINER)
-
-kill-sigint:
-	docker container kill --signal="SIGINT" $(CONTAINER_ID)
 
 kill-sigterm:
 	docker container kill --signal="SIGTERM" $(CONTAINER_ID)
